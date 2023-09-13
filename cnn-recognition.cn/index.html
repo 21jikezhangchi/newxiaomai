@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小麦赤霉病穗率识别检测</title>
+
+    <link rel="stylesheet" href="./static/css/style_1.css" />
+    <link rel="short icon" href="./static/img/back.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+<!-- 在 <body> 标签末尾添加以下 JavaScript 代码 -->
+    <script type="text/javascript">
+        // 获取 "选择图片" 和 "进行识别" 按钮
+        const selectBtn = document.getElementById('btn_file');
+        const recognizeBtn = document.getElementById('recognizeBtn');
+    
+        // 获取显示图片的 <div> 元素
+        const imageContainer = document.querySelector('.main_right');
+    
+        // 保存对应的图片路径
+        const imagePairs = {
+            './static/img/image1.jpg': './static/img/image2.jpg',
+            './static/img/image3.jpg': './static/img/image4.jpg',
+            // 在这里继续添加其他图片路径的对应关系
+        };
+    
+        // 给 "选择图片" 按钮添加事件监听器
+        selectBtn.addEventListener('change', function (event) {
+            const selectedImage = event.target.files[0];
+            if (selectedImage) {
+                // 创建一个 FileReader 对象，用于读取图片文件
+                const reader = new FileReader();
+    
+                // 读取图片文件完成后的回调函数
+                reader.onload = function (e) {
+                    // 设置图片路径为读取的数据，即选择的图片
+                    imageContainer.style.backgroundImage = `url(${e.target.result})`;
+                };
+    
+                // 开始读取图片文件
+                reader.readAsDataURL(selectedImage);
+            }
+        });
+    
+        // 给 "进行识别" 按钮添加事件监听器
+        recognizeBtn.addEventListener('click', function () {
+            const currentImage = imageContainer.style.backgroundImage;
+            // 判断当前显示的图片路径是否在 imagePairs 中存在对应关系
+            if (currentImage in imagePairs) {
+                // 切换显示另一张对应的图片
+                imageContainer.style.backgroundImage = `url(${imagePairs[currentImage]})`;
+            } else {
+                // 如果没有对应关系，则显示默认图片或其他操作
+                // imageContainer.style.backgroundImage = `url(path/to/default/image.jpg)`;
+            }
+        });
+    </script>
+    
+
+</head>
+
+<body class="bc">
+
+
+    <div class="menu-bar">
+        <h1 class="logo"><a href="https://www.cnn-recognition.cn/">小麦赤霉病穗率识别检测</a></h1>
+        <ul>
+            <li><a href="https://www.cnn-recognition.cn/">首页</a></li>
+            <li><a href="https://www.cnn-recognition.cn/introduction">功能介绍</a></li>
+            <li><a href="https://chat.openai.com/">AI小助手</a></li>
+            <li><a href="#">麦田信息<i class="fas fa-caret-down"></i></a>
+                <div class="dropdown-menu">
+                    <ul>
+                        <li><a href="file:///C:/Users/fishion/Desktop/%E7%BD%91%E9%A1%B5/%E9%BA%A6%E7%94%B0%E4%BF%A1%E6%81%AF/cnn-recognition.cn/index.html">麦田信息</a></li>
+                        <li><a href="file:///C:/Users/fishion/Desktop/%E7%BD%91%E9%A1%B5/%E9%BA%A6%E7%94%B0%E4%BF%A1%E6%81%AF/cnn-recognition.cn/index.html">实时预警</a></li>
+                    </ul>
+                </div>
+            </li>
+
+            <li><a href="#">赤霉病简介<i class="fas fa-caret-down"></i></a>
+                <div class="dropdown-menu">
+                    <ul>
+                        <li>
+                            <a href="http://www.ippcaas.cn/kpzs/229566.htm">赤霉病产生防治</a>
+                        </li>
+                    
+                    </ul>
+                </div>
+            </li>
+       
+            <li><a href="https://www.cnn-recognition.cn/users/">用户登录</a></li>
+        </ul>
+    </div>
+
+
+    <div class="main1">
+        <div class="main">
+            <div class="title">
+                <p style="color: black;">小麦赤霉病穗率识别检测</p>
+                <p style="font-size: 22px; color: #696969;">Wheat Fusarium Head Blight Detection</p>
+            </div>
+
+<div class="select">
+    <form action="#" method="post" enctype="multipart/form-data">
+        <input type="file" class="xfile" id="btn_file" name="pic1" />
+        <br />
+        <br />
+        <br />
+        <button type="button" id="selectBtn" class="xxfile" style="display:block;margin:0 auto;color: #fafaf6">
+            选择图片
+        </button>
+        <br/>
+        <input type="submit" id="recognizeBtn" class="xxsub" style="color: #fafaf6;display:block;margin:0 auto" value="进行识别" />
+    </form>
+</div>
+
+
+
+            <div class="foot">
+                <ul>
+                    <li>
+                        <ol>
+                            <dd>
+                                <font color=#fafaf6 size="5px">使用说明:</font>
+                            </dd>
+                            <br/>
+                            <dl>
+                                <font color=#555555 size="5px">1.点击"选择图片"上传jpg或png格式的图片;</font>
+                            </dl>
+                            <dl></dl>
+                            <dl>
+                                <font color=#555555 size="5px">2.点击"进行识别"即可自动识别小麦病穗率;</font>
+                            </dl>
+                            <dl></dl>
+                           
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="main_right">
+                <img id="selectedImage" src="" alt="Selected Image">
+            </div>
+        </div>
+        <main_picture>
+            <div class="cube">
+                <div class="img1"></div>
+                <div class="img2"></div>
+                <div class="img3"></div>
+                <div class="img4"></div>
+                <div class="img5"></div>
+                <div class="img6"></div>
+            </div>
+        </main_picture>
+    </div>
+</body>
+<!-- 在 <body> 标签末尾添加以下 JavaScript 代码 -->
+    
+    
+
+</html>
